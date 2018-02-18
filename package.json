@@ -9,6 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< feca995c97caa019f97d263f54ec6c0d5817fd38
+=======
+    "express": "^4.16.2",
+>>>>>>> project structure push from H
     "validator": "^9.4.0"
   }
 }

@@ -65,5 +65,42 @@ var UserSchema=new mongoose.Schema({
         type:String,
         required:true,   
         minlength:6
+<<<<<<< feca995c97caa019f97d263f54ec6c0d5817fd38
     }
+=======
+    },
+    members:[{
+        firstName:{
+            type:String,
+            required:true,
+            validate: [validators.notEmpty, 'Name is empty'],
+            trim:true,
+            minlength:1,
+        },
+        mobile: {
+            type: String,
+            required: [true, 'Please enter mobile number.'],
+            validate: {
+              validator: (value)=> {
+                return /\d{3}-\d{3}-\d{4}/.test(value);
+              },
+              message: '{VALUE} is not a valid phone number!'
+            },
+          },
+        gender:{
+            type:String
+        },
+        dateOfBirth:{
+            type:Date,
+            required:[true,'please enter birth date.']
+        },
+        relationship:{
+            type:String
+        },
+        cretedDate:{
+            type:Date,
+            default:Date.now(),
+        },
+    }]
+>>>>>>> project structure push from H
 });
