@@ -65,9 +65,7 @@ var UserSchema=new mongoose.Schema({
         type:String,
         required:true,   
         minlength:6
-<<<<<<< feca995c97caa019f97d263f54ec6c0d5817fd38
-    }
-=======
+
     },
     members:[{
         firstName:{
@@ -102,5 +100,4 @@ var UserSchema=new mongoose.Schema({
             default:Date.now(),
         },
     }]
->>>>>>> project structure push from H
 });
