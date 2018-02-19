@@ -3,7 +3,7 @@ var{authenticate}=require('./../middleware/authenticate');
 var express = require('express');
 var router = express.Router();
 var bodyParser = require("body-parser");
-
+const _=require('lodash');
 // app.use(bodyParser.json());
 // //POST /users
 // app.post('/users',(req,res)=>{
@@ -56,13 +56,8 @@ var bodyParser = require("body-parser");
 // -----------------
 router.post('/users',(req,res)=>{
   debugger;
-    var body=({firstName:req.body.firstName,
-               mobile:req.body.mobile,
-               email:req.body.email,
-               password:req.body.password,
-               dateOfBirth:req.body.dateOfBirth
-              });
-    //var body=_.pick(req.body,['email','password']);
+    //var body=({firstName:req.body.firstName,mobile:req.body.mobile,email:req.body.email,password:req.body.password,dateOfBirth:req.body.dateOfBirth});
+    var body=_.pick(req.body,['firstName','email','password','mobile','dateOfBirth']);
     var user= new User(body); // for all our validation
     
     user.save().then(()=>{

@@ -1,5 +1,5 @@
-const mongoose =require('mongoose');
 const validator=require('validator');
+const mongoose =require('mongoose');
 const jwt=require('jsonwebtoken');
 const _=require('lodash');
 const bcrypt=require('bcryptjs');
@@ -8,8 +8,7 @@ const bcrypt=require('bcryptjs');
 var UserSchema=new mongoose.Schema({
     firstName:{
         type:String,
-        required:true,
-        //validate: [validator.notEmpty, 'Name is empty'],
+        required:[true,'Name is empty'],
         trim:true,
         minlength:1,
     },
@@ -17,32 +16,26 @@ var UserSchema=new mongoose.Schema({
         type:String,
     },
     mobile: {
-        type: String,
-        required: [true, '1Please enter mobile number.'],
-        // validate: {
-        //   validator: (value)=> {
-        //     return /\d{3}-\d{3}-\d{4}/.test(value);
-        //   },
-        //   message: '{VALUE} is not a valid phone number!'
-        // },
-        //index: { unique: true }
+        type: Number,
+        required: [true, 'Please enter mobile number.'],
+         validate: {
+            validator: function(v) {
+                return /^[0-9]{10}$/.test(v);
+            },
+            message: '{VALUE} is not a valid phone number!'
+        },
+        unique:true 
       },
     email:{
         type:String,
-        required:true,
+        required:[true,'should not a empty email'],
         trim:true,
         minlength:1,
-        //unique:true,
-        // validate:{
-        //     validator:validator.isEmail,
-        //     message:'{VALUE} is not a valid email'
-        // },
-        // validate:{
-        //     validator: (value)=>{
-        //         return validator.isEmail(value);
-        //     }
-        // },
-        
+        unique:true,
+        validate:{
+            validator:validator.isEmail,
+            message:'{VALUE} is not a valid email'
+        }
     },
     address:{
         type:String,
@@ -70,6 +63,14 @@ var UserSchema=new mongoose.Schema({
         // minlength:6
 
     },
+    isActive:{
+        type:Boolean,
+        default:true
+    },
+    deleted:{
+       type:Boolean,
+       default:false 
+    },
      tokens:[{
         access:{
             type:String,
@@ -83,23 +84,24 @@ var UserSchema=new mongoose.Schema({
     members:[{
         firstName:{
             type:String,
-            //required:true,
-           // validate: [validator.notEmpty, 'Name is empty'],
+            required:[true,'Member name is empty'],
             trim:true,
-          //  minlength:1,
+            minlength:1
         },
         mobile: {
-            type: String,
-           // required: [true, 'Please enter mobile number.'],
-            // validate: {
-            //   validator: (value)=> {
-            //     return /\d{3}-\d{3}-\d{4}/.test(value);
-            //   },
-            //   message: '{VALUE} is not a valid phone number!'
-            // },
-          },
+            type: Number,
+            required: [true, 'Please enter memeber mobile number.'],
+            validate: {
+            validator: function(v) {
+                    return /^[0-9]{10}$/.test(v);
+                },
+            message: '{VALUE} is not a valid phone number!'
+            },
+            //unique: true 
+            },
         gender:{
-            type:String
+            type:String,
+            enum: ['Male', 'Female','Other']
         },
         dateOfBirth:{
             type:Date,
@@ -111,17 +113,17 @@ var UserSchema=new mongoose.Schema({
         cretedDate:{
             type:Date,
             default:Date.now(),
-        },
+        }
     }]
 });
 
 
 //hide the return result details of password and token
-// UserSchema.methods.toJSON=function(){
-//     var user=this;
-//     var userObject=user.toObject();
-//     return _.pick(userObject,['_id','email']);
-// };
+UserSchema.methods.toJSON=function(){
+    var user=this;
+    var userObject=user.toObject();
+    return _.pick(userObject,['_id','email']);
+};
 
 // Apply Authentication on user model
 UserSchema.methods.generateAuthToken=function(){
@@ -208,6 +210,8 @@ UserSchema.pre('save',function(next){
     }
 
 });
+
+
 //User model
 var User=mongoose.model('User',UserSchema);
 
