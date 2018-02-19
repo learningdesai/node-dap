@@ -1,8 +1,8 @@
-// var {User}=require('./../models/user');
-// var{authenticate}=require('./../middleware/authenticate');
-// var express = require('express');
-// var app=express.Router();
-// var bodyParser = require("body-parser");
+var {User}=require('./../models/user');
+var{authenticate}=require('./../middleware/authenticate');
+var express = require('express');
+var router = express.Router();
+var bodyParser = require("body-parser");
 
 // app.use(bodyParser.json());
 // //POST /users
@@ -48,12 +48,31 @@
 
 // module.exports = app;
 
-var express = require('express');
-var router = express.Router();
+//var express = require('express');
+
+//var app=express.Router();
 
 // Basic Route Demos
 // -----------------
-
+router.post('/users',(req,res)=>{
+  debugger;
+    var body=({firstName:req.body.firstName,
+               mobile:req.body.mobile,
+               email:req.body.email,
+               password:req.body.password,
+               dateOfBirth:req.body.dateOfBirth
+              });
+    //var body=_.pick(req.body,['email','password']);
+    var user= new User(body); // for all our validation
+    
+    user.save().then(()=>{
+        return user.generateAuthToken()
+    }).then((token)=>{
+        res.header('x-auth',token).send(user);
+    }).catch((e)=>{
+        res.status(400).send(e);
+    });
+});
 router.get('/', function(req, res, next) {
   res.json({
     foo: "bar",

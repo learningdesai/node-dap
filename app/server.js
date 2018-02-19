@@ -21,13 +21,10 @@ var port=process.env.PORT || 3000;
 // Sub-Apps
 // --------
 var api = require("./AdminRoutes/app");
-debugger;
 app.use("/api", api);
-debugger;
 // Exports
 // -------
 app.listen(port,()=>{
-    debugger;
     console.log(`Started on port ${port}.`);
 });
 module.exports = app;
