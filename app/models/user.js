@@ -6,7 +6,7 @@ var UserSchema=new mongoose.Schema({
     firstName:{
         type:String,
         required:true,
-        validate: [validators.notEmpty, 'Name is empty'],
+       // validate: [validator.notEmpty, 'Name is empty'],
         trim:true,
         minlength:1,
     },
@@ -16,12 +16,12 @@ var UserSchema=new mongoose.Schema({
     mobile: {
         type: String,
         required: [true, 'Please enter mobile number.'],
-        validate: {
-          validator: (value)=> {
-            return /\d{3}-\d{3}-\d{4}/.test(value);
-          },
-          message: '{VALUE} is not a valid phone number!'
-        },
+        // validate: {
+        //   validator: (value)=> {
+        //     return /\d{3}-\d{3}-\d{4}/.test(value);
+        //   },
+        //   message: '{VALUE} is not a valid phone number!'
+        // },
         index: { unique: true }
       },
     email:{
@@ -30,10 +30,10 @@ var UserSchema=new mongoose.Schema({
         trim:true,
         minlength:1,
         unique:true,
-        validate:{
-            validator:validator.isEmail,
-            message:'{VALUE} is not a valid email'
-        },
+        // validate:{
+        //     validator:validator.isEmail,
+        //     message:'{VALUE} is not a valid email'
+        // },
         // validate:{
         //     validator: (value)=>{
         //         return validator.isEmail(value);
@@ -71,19 +71,19 @@ var UserSchema=new mongoose.Schema({
         firstName:{
             type:String,
             required:true,
-            validate: [validators.notEmpty, 'Name is empty'],
+           // validate: [validator.notEmpty, 'Name is empty'],
             trim:true,
             minlength:1,
         },
         mobile: {
             type: String,
             required: [true, 'Please enter mobile number.'],
-            validate: {
-              validator: (value)=> {
-                return /\d{3}-\d{3}-\d{4}/.test(value);
-              },
-              message: '{VALUE} is not a valid phone number!'
-            },
+            // validate: {
+            //   validator: (value)=> {
+            //     return /\d{3}-\d{3}-\d{4}/.test(value);
+            //   },
+            //   message: '{VALUE} is not a valid phone number!'
+            // },
           },
         gender:{
             type:String
