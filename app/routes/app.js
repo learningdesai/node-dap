@@ -4,7 +4,7 @@ var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 
-var routes = require(".");
+var admin = require("./admin");
 
 // API Express App
 // ---------------
@@ -18,7 +18,7 @@ app.use(cookieParser());
 // Routes
 // ------
 
-app.use("/", routes);
+app.use("/", admin);
 
 // Exports
 // -------
