@@ -7,8 +7,15 @@ const _=require('lodash');
 
 // //POST /users
 router.post('/users',(req,res)=>{
+    var body=_.pick(req.body,['firstName','email','password','mobile','dateOfBirth'
+                             ,'members.firstName','members.mobile']);
 
-    var body=_.pick(req.body,['firstName','email','password','mobile','dateOfBirth']);
+    //if members more than 1 above pick not picking a memebers object
+    if(req.body.members!=undefined && req.body.members.length>1){
+        var membersObj=_.pick(req.body,['members'])
+        body = _.merge({}, membersObj, body);
+    }
+                               
     var user= new User(body); // for all our validation
     
     user.save().then(()=>{
@@ -47,18 +54,18 @@ router.delete('/users/me/token',authenticate,(req,res)=>{
     }
 });
 
-
-
 // API Specific 404 / Error Handlers
 // ---------------------------------
 
 // API not found
 router.use(function(req, res, next){
+    debugger;
   res.status(404).send();
 });
 
 // erorrs handler
 router.use(function(err, req, res, next){
+    debugger;
   var status = err.status || 500;
   res.status(status);
   res.json({
@@ -70,9 +77,11 @@ router.use(function(err, req, res, next){
 
 //Test API:
 router.get("/err", function(req, res, next){
+    debugger;
   next(new Error("Some Error"));
 });
 router.get('/', function(req, res, next) {
+    debugger;
   res.json({
     foo: "bar",
     baz: "quux"
