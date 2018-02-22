@@ -96,6 +96,7 @@ router.patch('/users/:id',(req,res)=>{
 });
 //Logout: delete user token 
 router.delete('/users/me/token',authenticate,(req,res)=>{
+    debugger;   
     req.user.removeToken(req.token).then(()=>{
         res.status(200).send();
     }),()=>{

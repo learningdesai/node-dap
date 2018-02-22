@@ -118,7 +118,7 @@ var UserSchema=new mongoose.Schema({
 });
 
 
-//hide the return result details of password and token
+//hide the return result user details like password and token ...
 UserSchema.methods.toJSON=function(){
     var user=this;
     var userObject=user.toObject();
