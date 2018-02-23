@@ -50,6 +50,9 @@ var UserSchema=new mongoose.Schema({
         type:Date,
         required:[true,'please enter birth date.']
     },
+    profilePhoto:{
+        type:String
+    }
     cretedDate:{
         type:Date,
         default:Date.now(),
@@ -114,7 +117,13 @@ var UserSchema=new mongoose.Schema({
             type:Date,
             default:Date.now(),
         }
-    }]
+    }],
+    latitude:{
+        type:Number
+    },
+    longitude:{
+        type:Number
+    }
 });
 
 
