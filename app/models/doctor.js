@@ -7,7 +7,7 @@ const bcrypt=require('bcryptjs');
 var DoctorSchema=new mongoose.Schema({
     firstName:{
         type:String,
-        required:[true,'Name is empty'],
+        required:[true,'Name should not be empty'],
         trim:true,
         maxlength:20
     },
@@ -69,6 +69,10 @@ var DoctorSchema=new mongoose.Schema({
         enum:['Not Varified','Failed','Pending','Verified'],
         default:'Not Varified'
     },
+    rating:{
+        type:Number,
+        enum:['Excelent':1,'Above Average':2,'Average':3,'below Average':4,'Poor':5],
+    }
     feedback:[{
         userId:{
             type:String
@@ -93,17 +97,25 @@ var DoctorSchema=new mongoose.Schema({
             type:String,
             maxlength:50
         },
-        weeklyOff:{
-                type:String,
+        weeklyOff:{ //Todo:multiple off by quama seperated
+                type:String, 
                 enum:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
                 default:'Sun'
         },
+        slots:[{ //Todo: Auto fill by using slotIntrval from timings collection
+            slotId:{
+                type:Number,
+            },
+            slotName:{
+                type:String
+            }
+        }],
         timings:[{ //Todo: very high priority to provide update doctor calender
             day:{
                 type:String,
                 enum:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
             },
-            allDay:{ // All day same time slot?
+            allDay:{ // All day same time slot.
                 type:Boolean
             },
             halfDay:{
@@ -116,6 +128,9 @@ var DoctorSchema=new mongoose.Schema({
             closeTime:{
                 type:Date
             },
+            slotInterval:{
+                type:Number
+            }
         }],
         photos:{//Todo: multiple photo path Separated by quama and order by number like 1_photo.jpeg
             type:String
