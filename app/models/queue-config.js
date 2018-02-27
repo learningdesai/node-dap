@@ -3,12 +3,12 @@ const mongoose =require('mongoose');
 const jwt=require('jsonwebtoken');
 //var relationship = require("mongoose-relationship");  //https://www.npmjs.com/package/mongoose-relationship
 
-var QueueSchema=new mongoose.Schema({ 
+var QueueConfigSchema=new mongoose.Schema({ 
     //queueId auto generated on same day morning before 1 hrs of queue start
     doctorId:{
         type:String
     },
-    queueStatus:{
+    defaultQueueStatus:{
         type:String,
         enum:['Not Started','Doctor Confirm','Doctor In','Queue Started','Doctor Out','Hold','Close']
     },
@@ -19,9 +19,33 @@ var QueueSchema=new mongoose.Schema({
         type:Schema.ObjectId,
         ref:"Notification",
         childPath:"notification"
+    }],
+    notificationTime:{
+        type:Date
+    },
+    schedule:[{
+        fromDate:{
+            type:Date
+        },
+        toDate:{
+            type:Date
+        },
+        fromTime:{
+            type:Date
+        },
+        toTime:{
+            type:Date
+        }
+        day:{
+            type:String,
+            enum:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+        },
+        allDay:{ 
+            type:Boolean
+        }
     }]
     
 });
 
-var Queue=mongoose.model('Queue',QueueSchema);
-model.exports.Queue=Queue;
+var QueueConfig=mongoose.model('QueueConfig',QueueConfigSchema);
+model.exports.QueueConfig=QueueConfig;

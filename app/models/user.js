@@ -52,7 +52,7 @@ var UserSchema=new mongoose.Schema({
     },
     profilePhoto:{
         type:String
-    }
+    },
     cretedDate:{
         type:Date,
         default:Date.now(),
