@@ -1,11 +1,7 @@
 
 var {User}=require('./../../models/user');
-var{authenticate}=require('./../../middleware/authenticate');
-const {ObjectID}=require('mongodb');
 
-const express = require('express');
-var router = express.Router();
-var bodyParser = require("body-parser");
+const {ObjectID}=require('mongodb');
 const _=require('lodash');
 
 // //POST /users

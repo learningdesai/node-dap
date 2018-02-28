@@ -18,10 +18,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// Routes
-// ------
-
-//app.use("/", user);
+//------- Routes ---------
+// User routes
 app.post('/users',user.create);
 app.get('/users/me',authenticate.user,user.getMe);
 app.post('/users/login',user.login);
@@ -29,8 +27,7 @@ app.get('/users/:id',user.getById);
 app.patch('/users/:id',user.update);
 app.delete('/users/me/token',authenticate.user,user.logout);
 
-
-
+// Doctor routes
 app.post('/doctors', doctor.create);
 app.get('/doctors/me',authenticate.doctor,doctor.getMe);
 
@@ -70,8 +67,6 @@ app.get('/', function(req, res, next) {
     baz: "quux"
   });
 });
-
-
 
 // Exports
 // -------
