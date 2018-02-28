@@ -24,4 +24,4 @@ var QueueSchema=new mongoose.Schema({
 });
 
 var Queue=mongoose.model('Queue',QueueSchema);
-model.exports.Queue=Queue;
+module.exports.Queue=Queue;

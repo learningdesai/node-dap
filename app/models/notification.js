@@ -23,4 +23,4 @@ var NotificationSchema=new mongoose.Schema({
 });
 
 var Notification=mongoose.model('Notification',NotificationSchema);
-model.exports.Notification=Notification;
+module.exports.Notification=Notification;

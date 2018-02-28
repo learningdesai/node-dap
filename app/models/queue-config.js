@@ -48,4 +48,4 @@ var QueueConfigSchema=new mongoose.Schema({
 });
 
 var QueueConfig=mongoose.model('QueueConfig',QueueConfigSchema);
-model.exports.QueueConfig=QueueConfig;
+module.exports.QueueConfig=QueueConfig;

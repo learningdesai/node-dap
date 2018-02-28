@@ -1,8 +1,9 @@
 var {User}=require('./../models/user');
+var {Doctor}=require('./../models/doctor');
 
-var authenticate=(req,res,next)=>{
+var authenticate={
+user:function(req,res,next){
     var token=req.header('x-auth');
-    debugger;
     User.findByToken(token).then((user)=>{
         if(!user){
             return Promise.reject();
@@ -13,6 +14,19 @@ var authenticate=(req,res,next)=>{
     }).catch((e)=>{
         res.status(401).send();
     });
-};
-
+},
+doctor:function(req,res,next){
+    var token=req.header('x-auth');
+    Doctor.findByToken(token).then((doctor)=>{
+        if(!doctor){
+            return Promise.reject();
+        }
+        req.doctor=doctor;
+        req.token=token;
+        next();
+    }).catch((e)=>{
+        res.status(401).send();
+    });
+},
+}
 module.exports={authenticate};

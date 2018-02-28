@@ -126,7 +126,6 @@ var UserSchema=new mongoose.Schema({
     }
 });
 
-
 //hide the return result user details like password and token ...
 UserSchema.methods.toJSON=function(){
     var user=this;
@@ -150,7 +149,6 @@ UserSchema.methods.generateAuthToken=function(){
 //remove token with token value
 UserSchema.methods.removeToken=function(token){
     var user =this;// small case user bcs instance method
-    
     return user.update({
         $pull:{
             tokens:{token}

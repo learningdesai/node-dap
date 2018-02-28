@@ -33,4 +33,4 @@ var BookingSchema=new mongoose.Schema({
 
 
 var Booking=mongoose.model('Booking',BookingSchema);
-model.exports.Booking=Booking;
+module.exports.Booking=Booking;

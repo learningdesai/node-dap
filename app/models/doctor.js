@@ -43,7 +43,7 @@ var DoctorSchema=new mongoose.Schema({
     },
     feesNote:{
         type:String
-    }
+    },
     description:{
         type:String,
         maxlength:1000
@@ -53,7 +53,7 @@ var DoctorSchema=new mongoose.Schema({
     },
     qualification:[{
         education:{ //Todo: multiple education should be quama seperated
-            type:String
+            type:String,
             maxlength:100
         },
         specialist:{ //Todo: multiple specialization should be quama seperated
@@ -70,9 +70,9 @@ var DoctorSchema=new mongoose.Schema({
         default:'Not Varified'
     },
     rating:{
-        type:Number,
-        enum:['Excelent':1,'Above Average':2,'Average':3,'below Average':4,'Poor':5],
-    }
+        type:String,
+        enum:['Excelent','Above Average','Average','below Average','Poor'],
+    },
     feedback:[{
         userId:{
             type:String
@@ -119,7 +119,7 @@ var DoctorSchema=new mongoose.Schema({
                 type:Boolean
             },
             halfDay:{
-                type:String
+                type:String,
                 enum:['1st Half','2nd Half'],
             },
             openTime:{
@@ -162,7 +162,7 @@ var DoctorSchema=new mongoose.Schema({
                 maxlength:20
             },
             phone1:{
-                type:String
+                type:String,
                 maxlength:20
             },
             latitude:{
@@ -173,7 +173,7 @@ var DoctorSchema=new mongoose.Schema({
             }
         }]
     }],
-     assistant:[{
+     assistants:[{
         firstName:{
             type:String,
             required:[true,'Member name is empty'],
@@ -229,7 +229,7 @@ var DoctorSchema=new mongoose.Schema({
     },
     dateOfBirth:{//Todo: message like Birthdate will not disclose anywhere
         type:Date,
-        required:[true,'please enter birth date.'] 
+       // required:[true,'please enter birth date.'] 
     },
     createdAt:{
         type:Date,
@@ -266,5 +266,56 @@ var DoctorSchema=new mongoose.Schema({
    
 });
 
+
+//hide the return result user details like password and token ...
+DoctorSchema.methods.toJSON=function(){
+    var doctor=this;
+    var userObject=doctor.toObject();
+    return _.pick(userObject,['_id','email']);
+};
+
+// Apply Authentication on user model
+DoctorSchema.methods.generateAuthToken=function(){
+    var doctor=this;
+    var access='auth';
+
+    var token=jwt.sign({_id:doctor._id.toHexString()},'abc123').toString();
+    doctor.tokens.push({access,token});
+    return doctor.save().then(()=>{
+        return token
+    });
+    
+};
+DoctorSchema.methods.removeToken=function(token){
+    var doctor =this;// small case user bcs instance method
+    return doctor.update({
+        $pull:{
+            tokens:{token}
+        }
+    });
+};
+
+//private route authenticate
+DoctorSchema.statics.findByToken=function(token){
+    var doctor=this;
+    var decoded;
+    try{
+        decoded=jwt.verify(token,'abc123')
+    }
+    catch(e){
+        // return new Promise((resolve,reject)=>{
+        //     reject();
+        // });
+        return Promise.reject();
+    }
+
+    return doctor.findOne({
+        '_id':decoded._id,
+        'tokens.token':token,
+        'tokens.access':'auth'
+    });
+};
+
+
 var Doctor=mongoose.model('Doctor',DoctorSchema);
-model.exports.Doctor=Doctor;
+module.exports.Doctor=Doctor;
