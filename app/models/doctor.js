@@ -241,9 +241,7 @@ var DoctorSchema=new mongoose.Schema({
     password:{
         type:String,
         required:true,   
-        minlength:6,
-        maxlength:20
-
+        minlength:6
     },
     isActive:{
         type:Boolean,
@@ -315,6 +313,43 @@ DoctorSchema.statics.findByToken=function(token){
         'tokens.access':'auth'
     });
 };
+
+DoctorSchema.statics.findByCredentials=function(email,password){
+    var Doctor=this;
+    return Doctor.findOne({email}).then((doctor)=>{
+        if(!doctor){
+            return Promise.reject();
+        }
+        return new Promise((resolve,reject)=>{
+            //use bcrypt compare password with doctor.password
+            bcrypt.compare(password,doctor.password,(err,res)=>{
+                if(res===true){
+                    resolve(doctor);
+                }
+                else{
+                    reject();
+                }
+            });
+        });
+    });
+};
+
+// Password hashing
+DoctorSchema.pre('save',function(next){
+    var doctor=this;
+
+    if(doctor.isModified('password')){
+        bcrypt.genSalt(10,(err,salt)=>{
+            bcrypt.hash(doctor.password,salt,(err,hash)=>{
+                doctor.password=hash;
+                 next();
+            });
+       });
+    }else{
+        next();
+    }
+
+});
 
 
 var Doctor=mongoose.model('Doctor',DoctorSchema);

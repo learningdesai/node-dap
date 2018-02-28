@@ -21,7 +21,7 @@ app.use(cookieParser());
 //------- Routes ---------
 // User routes
 app.post('/users',user.create);
-app.get('/users/me',authenticate.user,user.getMe);
+app.get('/users/me',authenticate.user,user.getMe); // check if token exist?
 app.post('/users/login',user.login);
 app.get('/users/:id',user.getById);
 app.patch('/users/:id',user.update);
@@ -30,6 +30,10 @@ app.delete('/users/me/token',authenticate.user,user.logout);
 // Doctor routes
 app.post('/doctors', doctor.create);
 app.get('/doctors/me',authenticate.doctor,doctor.getMe);
+app.post('/doctors/login',doctor.login);
+app.get('/doctors/:id',doctor.getById);
+app.patch('/doctors/:id',doctor.update);
+app.delete('/doctors/me/token',authenticate.doctor,doctor.logout);
 
 
 
