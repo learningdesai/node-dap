@@ -131,7 +131,8 @@ var DoctorSchema=new mongoose.Schema({
         }
     }],
    
-});
+},
+{timestamps: true});
 
 
 //hide the return result user details like password and token ...

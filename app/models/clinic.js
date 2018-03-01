@@ -28,11 +28,13 @@ var ClinicSchema=new mongoose.Schema({
                 enum:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
             },
             allDay:{ // All day same time slot.
-                type:Boolean
+                type:Boolean,
+                dafault:true
             },
             halfDay:{
                 type:String,
-                enum:['1st Half','2nd Half'],
+                enum:['1st Half','2nd Half','Full Day'],
+                default:'Full Day'
             },
             openTime:{
                 type:Date
@@ -44,9 +46,6 @@ var ClinicSchema=new mongoose.Schema({
                 type:Number
             }
         }],
-        photos:{//Todo: multiple photo path Separated by quama and order by number like 1_photo.jpeg
-            type:String
-        },
         contact:[{
             address:{
                 type:String,
@@ -83,9 +82,13 @@ var ClinicSchema=new mongoose.Schema({
             longitude:{
                 type:Number
             }
-        }]
+        }],
+         photos:{//Todo: multiple photo path Separated by quama and order by number like 1_photo.jpeg
+            type:String
+        }
  },
- { _id : false });
+ { _id : false },
+ {timestamps: true});
 
  
 // var Clinic=mongoose.model('Clinic',ClinicSchema);

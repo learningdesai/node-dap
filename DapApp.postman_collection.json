@@ -1,0 +1,373 @@
+{
+	"info": {
+		"name": "DapApp",
+		"_postman_id": "bbc0026a-3820-e531-3aec-3beee7e52837",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST /users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "28754dc9-3ef5-4ee2-b252-50207455c5df",
+						"type": "text/javascript",
+						"exec": [
+							"var token = postman.getResponseHeader('x-auth')",
+							"postman.setEnvironmentVariable('x-auth',token)",
+							"",
+							"var body=JSON.parse(responseBody)",
+							"postman.setEnvironmentVariable('userId',body._id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\":\"Santosh_M\",\n\t\"mobile\":\"4234567891\",\n\t\"email\":\"dapemai0@gmail.com\",\n\t\"password\":\"123abc\",\n\t\"dateOfBirth\":\"2012-01-01\",\n\t\"members\":[{\"firstName\":\"Abhidnya\",\"mobile\":\"4234567890\"},{\"firstName\":\"Anu\",\"mobile\":\"4234567890\"}]\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET / users/me",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth",
+						"value": "{{x-auth}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"dapemail@xyz.com\",\n\t\"password\":\"123abc\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/users/me",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"me"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST  /users/login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-auth",
+						"value": "{{x-auth}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"4dapemai9@gmail.com\",\n\t\"password\":\"123abc\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/users/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE /users/id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "91d11ea4-3531-4935-b141-79f095be0035",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"members\":[{\"firstName\":\"Abhidnya\",\"mobile\":\"4234567890\"},{\"firstName\":\"Anu\",\"mobile\":\"4234567890\"}]\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/users/{{userId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{userId}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Logout: Delete users/token",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-auth",
+						"value": "{{x-auth}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/users/me/token",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"me",
+						"token"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Logout: Delete doctors/token",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-auth",
+						"value": "{{x-auth}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/doctors/me/token",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"doctors",
+						"me",
+						"token"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /doctors",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e3f762a2-37d6-46d8-b904-b8c09f69b5d5",
+						"type": "text/javascript",
+						"exec": [
+							"var token = postman.getResponseHeader('x-auth')",
+							"postman.setEnvironmentVariable('x-auth',token)",
+							"",
+							"",
+							"var body=JSON.parse(responseBody)",
+							"postman.setEnvironmentVariable('userId',body._id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\":\"Santosh_M\",\n\t\"mobile\":\"4234567891\",\n\t\"email\":\"dapemai1@gmail.com\",\n\t\"password\":\"123abc\",\n\t\"assistants\":[{\"firstName\":\"Abhidnya\",\"mobile\":\"4234567891\",\"email\":\"email1@gmail.com\",\"password\":\"123abc\"}\n\t\t\t\t,{\"firstName\":\"Anu\",\"mobile\":\"4234567891\",\"email\":\"email1@gmail.com\",\"password\":\"123abc\"}],\n\t\"clinic\":[{\"name\":\"Surya\",\"registrationId\":\"101\",\"timings\":[{\"openTime\":\"09:00\",\"closeTime\":\"18:00\",\"slotInterval\":\"15\"}],\n\t\"contact\":[{\"address\":\"Pimple Nilakh\",\"city\":\"Pune\",\"state\":\"MH\",\"country\":\"IN\",\"pinCode\":\"411027\",\"latitude\":\"18.520430\",\"longitude\":\"73.856744\"\n\t}]\n\t}]\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/doctors",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"doctors"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET / doctors/me",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth",
+						"value": "{{x-auth}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"dapemail@xyz.com\",\n\t\"password\":\"123abc\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/doctors/me",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"doctors",
+						"me"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST  /doctors/login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-auth",
+						"value": "{{x-auth}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"dapemai1@gmail.com\",\n\t\"password\":\"123abc\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/doctors/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"doctors",
+						"login"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE /doctors/id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "91d11ea4-3531-4935-b141-79f095be0035",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"members\":[{\"firstName\":\"Abhidnya_u\",\"mobile\":\"4234567890\"},{\"firstName\":\"Anu\",\"mobile\":\"4234567890\"}]\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/doctors/{{userId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"doctors",
+						"{{userId}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
