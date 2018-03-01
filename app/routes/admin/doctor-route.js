@@ -7,7 +7,8 @@ const _=require('lodash');
 var doctor = {
 
 create: function(req, res) {
-    var body=_.pick(req.body,['firstName','email','password','mobile','assistants']);
+    var body=_.pick(req.body,['firstName','email','password','mobile','assistants','clinic']);
+    debugger;
     var doctor= new Doctor(body); // for all our validation
     doctor.save().then(()=>{
         return doctor.generateAuthToken()
@@ -55,7 +56,7 @@ getById:function(req,res){
 update:function(req,res){
     
     var id=req.params.id;
-    var body=_.pick(req.body,['firstName','email','password','mobile','assistants']);
+    var body=_.pick(req.body,['firstName','email','password','mobile','assistants','clinic']);
 
     if(!ObjectID.isValid(id)){
         return res.status(404).send();

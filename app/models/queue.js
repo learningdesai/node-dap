@@ -16,7 +16,7 @@ var QueueSchema=new mongoose.Schema({
         type:Date
     },
     notification:[{
-        type:Schema.ObjectId,
+        type:Schema.Types.ObjectId,
         ref:"Notification",
         childPath:"notification"
     }]
