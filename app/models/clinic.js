@@ -37,10 +37,10 @@ var ClinicSchema=new mongoose.Schema({
                 default:'Full Day'
             },
             openTime:{
-                type:Date
+                type:String
             },
             closeTime:{
-                type:Date
+                type:String
             },
             slotInterval:{
                 type:Number

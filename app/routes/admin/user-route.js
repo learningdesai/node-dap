@@ -14,7 +14,6 @@ create:function(req,res){
     var user= new User(body); // for all our validation
     
     user.save().then(()=>{
-        debugger;
         return user.generateAuthToken()
     }).then((token)=>{
         res.header('x-auth',token).send(user);

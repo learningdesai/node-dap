@@ -11,7 +11,7 @@ const users=[{
     firstName:'Santosh',
     email:'santosh@example.com',
     password:'userOnePass',
-    mobile:'0123456789'
+    mobile:'1234567891',
     tokens:[{
         access:'auth',
         token:jwt.sign({_id:userOneId,access:'auth'},'abc123').toString()
@@ -21,7 +21,7 @@ const users=[{
     firstName:'User2',
     email:'user2@example.com',
     password:'userTwoPass',
-    mobile:'1123456789'
+    mobile:'1123456789',
      tokens:[{
         access:'auth',
         token:jwt.sign({_id:userTwoId,access:'auth'},'abc123').toString()
@@ -33,7 +33,7 @@ const doctors=[{
     firstName:'Santosh_d',
     email:'santosh_d@example.com',
     password:'userOnePass',
-    mobile:'0123456789'
+    mobile:'1234567891',
     tokens:[{
         access:'auth',
         token:jwt.sign({_id:userOneId,access:'auth'},'abc123').toString()
@@ -43,14 +43,14 @@ const doctors=[{
    firstName:'User2_d',
     email:'user2_d@example.com',
     password:'userTwoPass',
-    mobile:'1123456789'
+    mobile:'1123456789',
      tokens:[{
         access:'auth',
         token:jwt.sign({_id:userTwoId,access:'auth'},'abc123').toString()
     }]
 }]
 
-const populateTodos=(done)=>{
+const populateDoctors=(done)=>{
     Doctor.remove({}).then(()=>{
         return Doctor.insertMany(doctors);
     }).then(()=>done());

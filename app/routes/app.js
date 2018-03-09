@@ -1,9 +1,10 @@
+
 var express = require("express");
 var path = require("path");
 var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
-var router = express.Router();
+//var router = express.Router();
 var user = require("./admin/user-route");
 var doctor = require("./admin/doctor-route");
 var{authenticate}=require('./../middleware/authenticate');
@@ -15,8 +16,9 @@ var{authenticate}=require('./../middleware/authenticate');
 var app = express();
 app.use(logger("dev"));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 
 //------- Routes ---------
 // User routes
@@ -34,7 +36,6 @@ app.post('/doctors/login',doctor.login);
 app.get('/doctors/:id',doctor.getById);
 app.patch('/doctors/:id',doctor.update);
 app.delete('/doctors/me/token',authenticate.doctor,doctor.logout);
-
 
 
 
@@ -74,5 +75,4 @@ app.get('/', function(req, res, next) {
 
 // Exports
 // -------
-
-module.exports = app;
+module.exports  = app;

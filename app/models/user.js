@@ -24,7 +24,7 @@ var UserSchema=new mongoose.Schema({
             },
             message: '{VALUE} is not a valid phone number!'
         },
-        unique:true 
+        //unique:true 
       },
     email:{
         type:String,
@@ -48,7 +48,7 @@ var UserSchema=new mongoose.Schema({
     },
     dateOfBirth:{
         type:Date,
-        required:[true,'please enter birth date.']
+        //required:[true,'please enter birth date.']
     },
     profilePhoto:{
         type:String
@@ -62,7 +62,7 @@ var UserSchema=new mongoose.Schema({
     },
     password:{
         type:String,
-        required:true,   
+        //required:true,   
         minlength:6
 
     },
